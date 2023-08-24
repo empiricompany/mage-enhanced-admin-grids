@@ -120,12 +120,14 @@ class BL_CustomGrid_Helper_Collection
         $adapterKey = spl_object_hash($adapter);
         
         if (!isset($this->_quoteIdentifierCallbacks[$adapterKey])) {
-            $callback = create_function('$v', 'return Mage::helper(\'customgrid/collection\')->callQuoteIdentifier($v, '.++$this->_qiCallbacksCount.');');
-            
+
             $this->_quoteIdentifierCallbacks[$adapterKey] = array(
                 'adapter'  => $adapter,
                 'index'    => $this->_qiCallbacksCount,
-                'callback' => $callback
+                'callback' => function ($v)
+                {
+                    return Mage::helper('customgrid/collection')->callQuoteIdentifier($v, ++$this->_qiCallbacksCount);
+                }
             );
         }
         

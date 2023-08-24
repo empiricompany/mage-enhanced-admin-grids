@@ -334,7 +334,10 @@ abstract class BL_CustomGrid_Model_Grid_Type_Abstract extends Varien_Object
                     $xmlColumns,
                     $response->getColumns()
                 ),
-                create_function('$m', 'return ($m instanceof BL_CustomGrid_Model_Custom_Column_Abstract);')
+                function ($m)
+                {
+                    return ($m instanceof BL_CustomGrid_Model_Custom_Column_Abstract);
+                }
             );
             
             uasort($this->_customColumns, array($this, '_sortCustomColumns'));
@@ -1179,7 +1182,11 @@ abstract class BL_CustomGrid_Model_Grid_Type_Abstract extends Varien_Object
             'global'     => array_diff_key($request->getParams(), array_flip(array($idsKey, $additionalKey, $valuesKey))),
         );
         
-        return array_map(create_function('$a', 'return (is_array($a) ? $a : array());'), $params);
+        return array_map(function ($a)
+        {
+            return (is_array($a) ? $a : array());
+        },
+        $params);
     }
     
     /**

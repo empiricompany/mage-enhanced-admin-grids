@@ -216,16 +216,22 @@ abstract class BL_CustomGrid_Model_Config_Abstract extends Varien_Object
     public function encodeParameters($parameters)
     {
         if (is_array($parameters)) {
-            return serialize($parameters);
+            return base64_encode(json_encode($parameters));
         }
-        return $parameters;
+        return base64_encode(json_encode(['__encoded_data' => $parameters]));
     }
     
     public function decodeParameters($parameters, $forceArray=false)
     {
         if (is_string($parameters)) {
-            $parameters = unserialize($parameters);
+            $parameters = json_decode(base64_decode($parameters), true);
         }
+
+        if (is_array($parameters) && isset($parameters['__encoded_data']))
+        {
+            $parameters = $parameters['__encoded_data'];
+        }
+
         return ($forceArray && !is_array($parameters) ? array() : $parameters);
     }
     

@@ -251,7 +251,7 @@ class BL_CustomGrid_Helper_String extends Mage_Core_Helper_Abstract
                 $result[] = $this->htmlDoubleEscape($item);
             }
         } else {
-            if (strlen($data)) {
+            if ($data AND strlen($data)) {
                 if (is_array($allowedTags) and !empty($allowedTags)) {
                     $allowed = implode('|', $allowedTags);
                     $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);

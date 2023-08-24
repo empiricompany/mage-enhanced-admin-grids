@@ -17,7 +17,7 @@
 <config>
     <modules>
         <BL_CustomGrid>
-            <version>0.9.0.1</version>
+            <version>0.9.4.0</version>
         </BL_CustomGrid>
     </modules>
     <global>
@@ -34,10 +34,10 @@
         <models>
             <customgrid>
                 <class>BL_CustomGrid_Model</class>
-                <resourceModel>customgrid_mysql4</resourceModel>
+                <resourceModel>customgrid_resource</resourceModel>
             </customgrid>
-            <customgrid_mysql4>
-                <class>BL_CustomGrid_Model_Mysql4</class>
+            <customgrid_resource>
+                <class>BL_CustomGrid_Model_Resource</class>
                 <entities>
                     <grid><table>customgrid_grid</table></grid>
                     <grid_column><table>customgrid_grid_column</table></grid_column>
@@ -48,7 +48,7 @@
                     <options_source_model><table>customgrid_options_source_model</table></options_source_model>
                     <options_source_option><table>customgrid_options_source_option</table></options_source_option>
                 </entities>
-            </customgrid_mysql4>
+            </customgrid_resource>
         </models>
         <resources>
             <customgrid_setup>

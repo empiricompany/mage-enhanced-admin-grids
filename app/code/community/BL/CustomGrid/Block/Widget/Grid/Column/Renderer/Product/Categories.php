@@ -48,7 +48,7 @@ class BL_CustomGrid_Block_Widget_Grid_Column_Renderer_Product_Categories
                 }
             }
         } else {
-            $result = array_map(create_function('$v', 'return array($v);'), $ids);
+            $result = array_map(function ($v) { return array($v); }, $ids);
         }
         
         return $result;
@@ -57,7 +57,7 @@ class BL_CustomGrid_Block_Widget_Grid_Column_Renderer_Product_Categories
     protected function _renderRow($row, $levelSep, $resultSep)
     {
         $result = $this->_getRowResult($row);
-        array_walk($result, create_function('&$v, $k, $s', '$v = implode($v, $s);'), $levelSep);
+        array_walk($result, function (&$v, $k, $s) { $v = implode($v, $s); }, $levelSep);
         return implode($resultSep, $result);
     }
     

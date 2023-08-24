@@ -27,31 +27,36 @@ class BL_CustomGrid_Helper_Data extends Mage_Core_Helper_Abstract
     
     protected function _parseIntValue($value)
     {
-        return ($value !== '' ? intval($value) : null);
+        return ($value !== '' ? (int)$value : null);
     }
-    
+
     public function parseCsvIntArray($string, $unique=true, $sorted=false, $min=null, $max=null)
     {
         $values = array_map(array($this, '_parseIntValue'), explode(',', $string));
-        $filterCodes = array('!is_null($v)');
-        
+
         if ($unique) {
             $values = array_unique($values);
         }
-        if (!is_null($min)) {
-            $filterCodes[] = '($v >= '.intval($min).')';
-        }
-        if (!is_null($max)) {
-            $filterCodes[] = '($v <= '.intval($max).')';
-        }
-        
-        $filterCode = 'return ('.implode(' && ', $filterCodes).');';
-        $values = array_filter($values, create_function('$v', $filterCode));
-        
+
+        $values = array_filter($values, function ($v) use ($min, $max) {
+            if ($min !== null && $max !== null) {
+                return (($v !== null) && ($v >= (int)$min) && ($v <= (int)$max));
+            }
+
+            if ($min !== null && $max === null) {
+                return (($v !== null) && ($v >= (int)$min));
+            }
+
+            if ($min === null && $max !== null) {
+                return (($v !== null) && ($v <= (int)$max));
+            }
+            return ($v !== null);
+        });
+
         if ($sorted) {
             sort($values, SORT_NUMERIC);
         }
-        
+
         return $values;
     }
     
