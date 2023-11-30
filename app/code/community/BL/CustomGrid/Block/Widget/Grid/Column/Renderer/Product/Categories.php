@@ -57,7 +57,7 @@ class BL_CustomGrid_Block_Widget_Grid_Column_Renderer_Product_Categories
     protected function _renderRow($row, $levelSep, $resultSep)
     {
         $result = $this->_getRowResult($row);
-        array_walk($result, function (&$v, $k, $s) { $v = implode($v, $s); }, $levelSep);
+        array_walk($result, function (&$v, $k, $s) { $v = implode($s, $v); }, $levelSep);
         return implode($resultSep, $result);
     }
     
