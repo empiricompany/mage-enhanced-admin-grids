@@ -60,7 +60,7 @@ class BL_CustomGrid_Block_Widget_Grid_Column_Renderer_Product_Image
                     && (($height = intval($this->getColumn()->getImageHeight())) > 0)) {
                     $dimensions = ' width="'.$width.'" height="'.$height.'" ';
                 }
-                $result .= '<img src="'.$images[1].'" alt="'.$this->htmlEscape($image).'" title="'.$this->htmlEscape($image).'" '.$dimensions.' />';
+                $result .= '<img loading="lazy" src="'.$images[1].'" alt="'.$this->htmlEscape($image).'" title="'.$this->htmlEscape($image).'" '.$dimensions.' />';
             } else {
                 $result .= $image;
             }
